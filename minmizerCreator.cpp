@@ -279,9 +279,9 @@ int main() {
 
     //string sub= "0010132110210202021323222330101000222230210222330003323313212010313033321132023001112232112221201233112123221101300311330222111030030102001000232";
     //vector<vector<int>> D(n + 1, vector<int>(m + 1, 0));
-    //for (int i = 0; i < 10; i++) {
-    wagnerFischerAffineGap2(read, sub, &score, false, 1, 1, 1);
-    //}
+    for (int i = 0; i < 3; i++) {
+        wagnerFischerAffineGap2(read, sub, &score, false, 1, 1, 1);
+    }
     //backtrackingWF("AGGCCTA", "TAGCTTA");
     //vector<RowMinimizer*> MinimizersListForCPU;
     //Kmer min1 = Kmer(0,"123");
