@@ -209,13 +209,6 @@ string backtrackingWF(const string& S1, const string& S2) {
             }
         }
     }
-    for (int i = 0; i < n; i ++) {
-        for(int j = 0; j < m; j++){
-            std::cout << D[i][j] << ", ";
-        }
-        std::cout << "\n";
-    }
-
 
     int i = m, j = n;
     while (i > 0 && j > 0 && D[i][j] > 0) {
@@ -278,13 +271,17 @@ int main() {
 
     int score = 0;
     string read = "002011023132211001032232000111103133301300000301000300330213222323223223222101132300331102130131222002320021022020031010320011132202210202203210232023";
-    string sub  = "002011023132211001032232000111103133301300000301000300330213222323223223222101132300331102130131222002320021022020031010320011132202210202203210232023020020";
+    string sub  = "0020110231322110010322320001111031333013000003010003003302132223232232232221011323003311021301312220023200210220200310103200111322022102022032102320230200";
     //string sub  = "211133202121211002111102210333230221022333113131112102222120323013122120321310212231322211102111323021131301103222131021321021321101132001032210123221020020";
 
+    //string read = "111123";
+    //string sub  = "1111230000";
 
     //string sub= "0010132110210202021323222330101000222230210222330003323313212010313033321132023001112232112221201233112123221101300311330222111030030102001000232";
     //vector<vector<int>> D(n + 1, vector<int>(m + 1, 0));
-    wagnerFischerAffineGap2(read, sub, &score, false, 1, 1, 1);
+    for (int i = 0; i < 1000; i++) {
+        wagnerFischerAffineGap2(read, sub, &score, false, 1, 1, 1);
+    }
     //backtrackingWF("AGGCCTA", "TAGCTTA");
     //vector<RowMinimizer*> MinimizersListForCPU;
     //Kmer min1 = Kmer(0,"123");
@@ -320,25 +317,17 @@ int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  boo
         D[0][j] = j * wex;
         M2[0][j] = j * wex;
     }
-    for (int i = 1; i <= n; ++i) {
-        for (int j = 1; j <= m; ++j) {
-            if(abs(i-j) > 8) {
-                D[i][j] = 8;
-            }
-        }
-    }
+
     // Fill in the matrices using dynamic programming
     for (int i = 1; i <= n; ++i) {
         for (int j = 1; j <= m; ++j) {
-            if((i - j) < 8) {
-                M1[i][j] = min(M1[i - 1][j] + wex, D[i - 1][j] + wop + wex);
-                M2[i][j] = min(M2[i][j - 1] + wex, D[i][j - 1] + wop + wex);
+            M1[i][j] = min(M1[i - 1][j] + wex, D[i - 1][j] + wop + wex);
+            M2[i][j] = min(M2[i][j - 1] + wex, D[i][j - 1] + wop + wex);
 
-                if (S1[i - 1] == S2[j - 1]) {
-                    D[i][j] = D[i - 1][j - 1];
-                } else {
-                    D[i][j] = min({M1[i][j], M2[i][j], D[i - 1][j - 1] + wsub});
-                }
+            if (S1[i - 1] == S2[j - 1]) {
+                D[i][j] = D[i - 1][j - 1];
+            } else {
+                D[i][j] = min({M1[i][j], M2[i][j], D[i - 1][j - 1] + wsub});
             }
         }
     }
