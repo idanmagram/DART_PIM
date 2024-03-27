@@ -54,9 +54,9 @@ int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  boo
     string seq1_align = "";
     string seq2_align = "";
 
-    int D[REF_SUB_SEQUENCE_LENGTH+1][READ_LENGTH+1] = {0};
-    int M1[REF_SUB_SEQUENCE_LENGTH+1][READ_LENGTH+1] = {0};
-    int M2[REF_SUB_SEQUENCE_LENGTH+1][READ_LENGTH+1] = {0};
+    vector<vector<int>> D(n + 1, vector<int>(m + 1));
+    vector<vector<int>> M1(n + 1, vector<int>(m + 1));
+    vector<vector<int>> M2(n + 1, vector<int>(m + 1));
 
 
     // Initialize matrices with appropriate values
