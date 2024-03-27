@@ -18,6 +18,10 @@ using namespace std;
 #include <vector>
 #include <algorithm>
 #include <map>
+#define READ_LENGTH                150
+#define ERROR_THRESHOLD            3
+#define REF_SUB_SEQUENCE_LENGTH    READ_LENGTH + 2 * ERROR_THRESHOLD
+
 
 class Kmer {
 public:
@@ -280,7 +284,7 @@ int main() {
     //string sub= "0010132110210202021323222330101000222230210222330003323313212010313033321132023001112232112221201233112123221101300311330222111030030102001000232";
     //vector<vector<int>> D(n + 1, vector<int>(m + 1, 0));
     for (int i = 0; i < 1; i++) {
-        wagnerFischerAffineGap2(read, sub, &score, true, 1, 1, 1);
+        wagnerFischerAffineGap2(read, sub, &score, false, 1, 1, 1);
         cout << "score is: " << score;
     }
     //backtrackingWF("AGGCCTA", "TAGCTTA");
@@ -304,10 +308,10 @@ int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  boo
     string seq1_align = "";
     string seq2_align = "";
 
-    // Initialize matrices D, M1, and M2 with appropriate dimensions
-    vector<vector<int>> D(n + 1, vector<int>(m + 1, 0));
-    vector<vector<int>> M1(n + 1, vector<int>(m + 1, 0));
-    vector<vector<int>> M2(n + 1, vector<int>(m + 1, 0));
+    int D[REF_SUB_SEQUENCE_LENGTH][READ_LENGTH] = {0};
+    int M1[REF_SUB_SEQUENCE_LENGTH][READ_LENGTH] = {0};
+    int M2[REF_SUB_SEQUENCE_LENGTH][READ_LENGTH] = {0};
+
 
     // Initialize matrices with appropriate values
     for (int i = 1; i <= n; ++i) {
