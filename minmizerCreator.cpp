@@ -54,19 +54,19 @@ int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  boo
     string seq1_align = "";
     string seq2_align = "";
 
-    vector<vector<int>> D(n + 1, vector<int>(m + 1));
-    vector<vector<int>> M1(n + 1, vector<int>(m + 1));
-    vector<vector<int>> M2(n + 1, vector<int>(m + 1));
+    int D[REF_SUB_SEQUENCE_LENGTH+1][READ_LENGTH+1] = {0};
+    int M1[REF_SUB_SEQUENCE_LENGTH+1][READ_LENGTH+1] = {0};
+    int M2[REF_SUB_SEQUENCE_LENGTH+1][READ_LENGTH+1] = {0};
 
 
     // Initialize matrices with appropriate values
     for (int i = 1; i <= n; ++i) {
-        D[i][0] = i * wex;
-        M1[i][0] = i * wex;
+        D[i][0] = i;
+        M1[i][0] = i;
     }
     for (int j = 1; j <= m; ++j) {
-        D[0][j] = j * wex;
-        M2[0][j] = j * wex;
+        D[0][j] = j;
+        M2[0][j] = j;
     }
 
     int max_gap = 6;
