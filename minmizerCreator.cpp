@@ -318,11 +318,20 @@ int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  boo
         D[0][j] = j * wex;
         M2[0][j] = j * wex;
     }
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= m; ++j) {
+            if (abs(i - j) > 5) {
+                D[i][j] = 10;
+                M1[i][j] = 10;
+                M2[i][j] = 10;
+            }
+        }
+    }
 
     // Fill in the matrices using dynamic programming
     for (int i = 1; i <= n; ++i) {
         for (int j = 1; j <= m; ++j) {
-            if (abs(i-j) < 4) {
+            if (abs(i-j) <= 6) {
                 M1[i][j] = min(M1[i - 1][j] + wex, D[i - 1][j] + wop + wex);
                 M2[i][j] = min(M2[i][j - 1] + wex, D[i][j - 1] + wop + wex);
                 if (S1[i - 1] == S2[j - 1]) {
