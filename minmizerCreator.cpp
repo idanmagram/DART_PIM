@@ -24,6 +24,17 @@ using namespace std;
 
 int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  bool backtraching, int wop, int wex, int wsub);
 
+int computeMinimum3(int a, int b, int c) {
+    int min_val = a;
+    if (b < min_val) {
+        min_val = b;
+    }
+    if (c < min_val) {
+        min_val = c;
+    }
+    return min_val;
+}
+
 int main() {
     int score = 0;
     string read = "002011023132211001032232000111103133301300000301000300330213222323223223222101132300331102130131222002320021022020031010320011132202210202203210232023";
@@ -76,15 +87,7 @@ int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  boo
                 if (S1[i - 1] == S2[j - 1]) {
                     D[i][j] = D[i - 1][j - 1];
                 } else {
-                    int min_val = M1[i][j];
-                    if (M2[i][j] < min_val) {
-                        min_val = M2[i][j];
-                    }
-                    int diagonal_val = D[i - 1][j - 1] + wsub;
-                    if (diagonal_val < min_val) {
-                        min_val = diagonal_val;
-                    }
-                    D[i][j] = min_val;
+                    D[i][j] = computeMinimum3(M1[i][j], M2[i][j], D[i - 1][j - 1] + wsub);
                     //D[i][j] = min({M1[i][j], M2[i][j], D[i - 1][j - 1] + wsub});
                 }
             }
@@ -128,3 +131,4 @@ int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  boo
 
     return *score;
 }
+
