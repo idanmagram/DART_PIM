@@ -333,15 +333,15 @@ int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  boo
     }
 
     // Fill in the matrices using dynamic programming
-    for (int i = 1; i <= n; ++i) {
-        for (int j = 1; j <= m; ++j) {
-            if (abs(i-j) <= 6) {
-                M1[i][j] = min(M1[i - 1][j] + wex, D[i - 1][j] + wop + wex);
-                M2[i][j] = min(M2[i][j - 1] + wex, D[i][j - 1] + wop + wex);
+    for (int j = 1; j <= n; ++j) {
+        for (int i = 1; i <= m; ++i) {
+            if (abs(i - j) <= 6) {
+                M1[j][i] = min(M1[j - 1][i] + wex, D[j - 1][i] + wop + wex);
+                M2[j][i] = min(M2[j][i - 1] + wex, D[j][i - 1] + wop + wex);
                 if (S1[i - 1] == S2[j - 1]) {
-                    D[i][j] = D[i - 1][j - 1];
+                    D[j][i] = D[j - 1][i - 1];
                 } else {
-                    D[i][j] = min({M1[i][j], M2[i][j], D[i - 1][j - 1] + wsub});
+                    D[j][i] = min({M1[j][i], M2[j][i], D[j - 1][i - 1] + wsub});
                 }
             }
         }
