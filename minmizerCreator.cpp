@@ -41,7 +41,7 @@ int main() {
     string read = "002011023132211001032232000111103133301300000301000300330213222323223223222101132300331102130131222002320021022020031010320011132202210202203210232023";
     string sub  = "002011023132211001032232000111103133301300000301000300330213222323223223222101132300331102130131222002320021022020031010320011132202210202203210232023020220";
     wagnerFischerAffineGap2(read, sub, &score, false, 1, 1, 1);
-    //cout << "score is: " << score;
+    cout << "score is: " << score;
 
     return 0;
 }
@@ -61,41 +61,36 @@ int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  boo
 
     // Initialize matrices with appropriate values
     for (int i = 1; i <= n; ++i) {
-        int iTimesWex = i * wex;
-        D[i][0] = iTimesWex;
-        M1[i][0] = iTimesWex;
+        D[i][0] = i * wex;
+        M1[i][0] = i * wex;
     }
     for (int j = 1; j <= m; ++j) {
-        int jTimesWex = j * wex;
-        D[0][j] = jTimesWex;
-        M2[0][j] = jTimesWex;
-    }
-    for (int i = 1; i <= n; ++i) {
-        for (int j = 1; j <= m; ++j) {
-            if (abs(i - j) > 5) {
-                D[i][j] = MAX;
-                M1[i][j] = MAX;
-                M2[i][j] = MAX;
-            }
-        }
+        D[0][j] = j * wex;
+        M2[0][j] = j * wex;
     }
 
-    // Fill in the matrices using dynamic programming
+    int max_gap = 6;
+    int max_gap_penalty = max_gap * wex + wop;
+
+    // Fill the DP tables using dynamic programming
     for (int i = 1; i <= n; ++i) {
         for (int j = 1; j <= m; ++j) {
-            if (abs(i-j) <= 6) {
-                M1[i][j] = min(M1[i - 1][j] + wex, D[i - 1][j] + wop + wex);
-                M2[i][j] = min(M2[i][j - 1] + wex, D[i][j - 1] + wop + wex);
-                if (S1[i - 1] == S2[j - 1]) {
-                    D[i][j] = D[i - 1][j - 1];
-                } else {
-                    D[i][j] = computeMinimum3(M1[i][j], M2[i][j], D[i - 1][j - 1] + wsub);
-                    //D[i][j] = min({M1[i][j], M2[i][j], D[i - 1][j - 1] + wsub});
-                }
+            if (abs(i - j) > max_gap) {
+                D[i][j] = max_gap_penalty;
+                M1[i][j] = max_gap_penalty;
+                M2[i][j] = max_gap_penalty;
+                continue;
             }
+
+            int ins = D[i - 1][j] + wex;
+            int del = D[i][j - 1] + wex;
+            int match_mismatch = D[i - 1][j - 1] + (S1[i - 1] == S2[j - 1] ? 0 : wsub);
+
+            D[i][j] = min({ins, del, match_mismatch});
+            M1[i][j] = min(M1[i - 1][j] + wex, D[i - 1][j] + wop + wex);
+            M2[i][j] = min(M2[i][j - 1] + wex, D[i][j - 1] + wop + wex);
         }
     }
-    // Return the optimal alignment score
     *score = D[n][m];
 
     // find the alignment of the read according to sub reference sequence
