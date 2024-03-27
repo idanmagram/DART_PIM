@@ -13,6 +13,7 @@ using namespace std;
 #define K 12
 #define W 4
 #define N 7
+#define MAX 10
 
 #include <iostream>
 #include <vector>
@@ -39,10 +40,9 @@ int main() {
     int score = 0;
     string read = "002011023132211001032232000111103133301300000301000300330213222323223223222101132300331102130131222002320021022020031010320011132202210202203210232023";
     string sub  = "002011023132211001032232000111103133301300000301000300330213222323223223222101132300331102130131222002320021022020031010320011132202210202203210232023020220";
-    for (int i = 0; i < 1; i++) {
-        wagnerFischerAffineGap2(read, sub, &score, false, 1, 1, 1);
-        cout << "score is: " << score;
-    }
+    wagnerFischerAffineGap2(read, sub, &score, false, 1, 1, 1);
+    //cout << "score is: " << score;
+
     return 0;
 }
 
@@ -54,26 +54,28 @@ int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  boo
     string seq1_align = "";
     string seq2_align = "";
 
-    int D[REF_SUB_SEQUENCE_LENGTH][READ_LENGTH] = {0};
-    int M1[REF_SUB_SEQUENCE_LENGTH][READ_LENGTH] = {0};
-    int M2[REF_SUB_SEQUENCE_LENGTH][READ_LENGTH] = {0};
+    int D[REF_SUB_SEQUENCE_LENGTH+1][READ_LENGTH+1] = {0};
+    int M1[REF_SUB_SEQUENCE_LENGTH+1][READ_LENGTH+1] = {0};
+    int M2[REF_SUB_SEQUENCE_LENGTH+1][READ_LENGTH+1] = {0};
 
 
     // Initialize matrices with appropriate values
     for (int i = 1; i <= n; ++i) {
-        D[i][0] = i * wex;
-        M1[i][0] = i * wex;
+        int iTimesWex = i * wex;
+        D[i][0] = iTimesWex;
+        M1[i][0] = iTimesWex;
     }
     for (int j = 1; j <= m; ++j) {
-        D[0][j] = j * wex;
-        M2[0][j] = j * wex;
+        int jTimesWex = j * wex;
+        D[0][j] = jTimesWex;
+        M2[0][j] = jTimesWex;
     }
     for (int i = 1; i <= n; ++i) {
         for (int j = 1; j <= m; ++j) {
             if (abs(i - j) > 5) {
-                D[i][j] = 10;
-                M1[i][j] = 10;
-                M2[i][j] = 10;
+                D[i][j] = MAX;
+                M1[i][j] = MAX;
+                M2[i][j] = MAX;
             }
         }
     }
