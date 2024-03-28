@@ -25,25 +25,13 @@ using namespace std;
 
 int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  bool backtraching, int wop, int wex, int wsub);
 
-int computeMinimum3(int a, int b, int c) {
-    int min_val = a;
-    if (b < min_val) {
-        min_val = b;
-    }
-    if (c < min_val) {
-        min_val = c;
-    }
-    return min_val;
-}
-
 int main() {
     int score = 0;
     string read = "002011023132211001032232000111103133301300000301000300330213222323223223222101132300331102130131222002320021022020031010320011132202210202203210232023";
     string sub  = "002011023132211001032232000111103133301300000301000300330213222323223223222101132300331102130131222002320021022020031010320011132202210202203210232023020220";
     int i = 0;
     for (i = 0; i < 1000; i++) {
-        wagnerFischerAffineGap2(read, sub, &score, false, 1, 1, 1);
-        //cout << "score is: " << score;
+        int idan = wagnerFischerAffineGap2(read, sub, &score, false, 1, 1, 1);
     }
 
 
