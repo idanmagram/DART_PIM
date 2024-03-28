@@ -70,41 +70,6 @@ int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  boo
         }
     }
     *score = D[n][m];
-
-
-    // find the alignment of the read according to sub reference sequence
-    if(backtraching) {
-        int i = n, j = m;
-        while (i > 0 && j > 0 && D[i][j] > 0) {
-            contenders = {D[i - 1][j - 1], D[i - 1][j], D[i][j - 1]};
-            minCon = *(std::min_element(contenders.begin(), contenders.end()));
-
-            if (minCon == contenders[0]) {
-                if (S1[i - 1] != S2[j - 1]) {
-                    seq1_align += S2[i - 1];
-                    seq2_align += S2[j - 1];
-                } else {
-                    seq1_align += S1[i - 1];
-                    seq2_align += S2[j - 1];
-                }
-                i -= 1;
-                j -= 1;
-            } else if (minCon == contenders[1]) {
-                seq1_align += S1[i - 1];
-                seq2_align += "-";
-                i -= 1;
-            } else {
-                seq1_align += "-";
-                seq2_align += S2[j - 1];
-                j -= 1;
-            }
-
-        }
-
-        std::reverse(seq1_align.begin(), seq1_align.end());
-        std::reverse(seq2_align.begin(), seq2_align.end());
-    }
-
     return *score;
 }
 
