@@ -10,6 +10,7 @@ using namespace std;
 #define READ_LENGTH                150
 #define ERROR_THRESHOLD            3
 #define REF_SUB_SEQUENCE_LENGTH    READ_LENGTH + 2 * ERROR_THRESHOLD
+#define MAX_GAP                    2 * ERROR_THRESHOLD
 
 int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  bool backtraching, int wop, int wex, int wsub);
 
@@ -18,8 +19,9 @@ int main() {
     string read = "002011023132211001032232000111103133301300000301000300330213222323223223222101132300331102130131222002320021022020031010320011132202210202203210232023";
     string sub  = "002011023132211001032232000111103133301300000301000300330213222323223223222101132300331102130131222002320021022020031010320011132202210202203210232023020220";
     int i = 0;
-    for (i = 0; i < 100; i++) {
-        int idan = wagnerFischerAffineGap2(read, sub, &score, false, 1, 1, 1);
+    for (i = 0; i < 1; i++) {
+        int res = wagnerFischerAffineGap2(read, sub, &score, false, 1, 1, 1);
+        cout << "res: " << res;
     }
     return 0;
 }
@@ -47,8 +49,8 @@ int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  boo
         M2[0][j] = j;
     }
 
-    int max_gap = 6;
-    int max_gap_penalty = max_gap * wex + wop;
+    int max_gap = MAX_GAP;
+    int max_gap_penalty = max_gap + wop;
 
     // Fill the DP tables using dynamic programming
     for (int i = 1; i <= n; ++i) {
@@ -60,13 +62,12 @@ int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  boo
                 continue;
             }
 
-            //int ins = D[i - 1][j] + wex;
-            //int del = D[i][j - 1] + wex;
-            int match_mismatch = D[i - 1][j - 1] + (S1[i - 1] == S2[j - 1] ? 0 : wsub);
-
             M1[i][j] = min(M1[i - 1][j] + wex, D[i - 1][j] + wop + wex);
             M2[i][j] = min(M2[i][j - 1] + wex, D[i][j - 1] + wop + wex);
-            D[i][j] = min({M1[i][j], M2[i][j], match_mismatch});
+            if (S1[i - 1] == S2[j - 1])
+                D[i][j] = D[i - 1][j - 1];
+            else
+                D[i][j] = min({M1[i][j], M2[i][j], D[i - 1][j - 1] + wsub});
         }
     }
     *score = D[n][m];
