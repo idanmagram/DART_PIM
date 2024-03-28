@@ -43,7 +43,7 @@ int main() {
     int i = 0;
     for (i = 0; i < 1000; i++) {
         wagnerFischerAffineGap2(read, sub, &score, false, 1, 1, 1);
-        cout << "score is: " << score;
+        //cout << "score is: " << score;
     }
 
 
