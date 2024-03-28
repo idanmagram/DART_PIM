@@ -59,7 +59,17 @@ int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  boo
     int M1[REF_SUB_SEQUENCE_LENGTH+1][READ_LENGTH+1] = {0};
     int M2[REF_SUB_SEQUENCE_LENGTH+1][READ_LENGTH+1] = {0};
 
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= m; ++j) {
+            if (abs(i - j) > 6) {
+                D[i][j]=1;
+                M1[i][j]=1;
+                M2[i][j]=1;
+            }
+        }
+    }
 
+/*
     // Initialize matrices with appropriate values
     for (int i = 1; i <= n; ++i) {
         D[i][0] = i;
@@ -93,6 +103,7 @@ int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  boo
         }
     }
     *score = D[n][m];
+    */
 
     // find the alignment of the read according to sub reference sequence
     if(backtraching) {
