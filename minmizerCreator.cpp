@@ -1,24 +1,11 @@
 #include <iostream>
-#include <vector>
 #include <algorithm>
-#include <unordered_set>
 
 
 using namespace std;
 
-#define A 0
-#define C 1
-#define G 2
-#define T 3
-#define K 12
-#define W 4
-#define N 7
 #define MAX 10
 
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <map>
 #define READ_LENGTH                150
 #define ERROR_THRESHOLD            3
 #define REF_SUB_SEQUENCE_LENGTH    READ_LENGTH + 2 * ERROR_THRESHOLD
@@ -33,8 +20,6 @@ int main() {
     for (i = 0; i < 10; i++) {
         int idan = wagnerFischerAffineGap2(read, sub, &score, false, 1, 1, 1);
     }
-
-
     return 0;
 }
 
