@@ -40,10 +40,9 @@ int main() {
     int score = 0;
     string read = "002011023132211001032232000111103133301300000301000300330213222323223223222101132300331102130131222002320021022020031010320011132202210202203210232023";
     string sub  = "002011023132211001032232000111103133301300000301000300330213222323223223222101132300331102130131222002320021022020031010320011132202210202203210232023020220";
-    for (int i = 0; i < 1000; i++) {
-        wagnerFischerAffineGap2(read, sub, &score, false, 1, 1, 1);
-    }
+    wagnerFischerAffineGap2(read, sub, &score, false, 1, 1, 1);
     //cout << "score is: " << score;
+
 
     return 0;
 }
@@ -84,13 +83,13 @@ int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  boo
                 continue;
             }
 
-            int ins = D[i - 1][j] + wex;
-            int del = D[i][j - 1] + wex;
+            //int ins = D[i - 1][j] + wex;
+            //int del = D[i][j - 1] + wex;
             int match_mismatch = D[i - 1][j - 1] + (S1[i - 1] == S2[j - 1] ? 0 : wsub);
 
-            D[i][j] = min({ins, del, match_mismatch});
             M1[i][j] = min(M1[i - 1][j] + wex, D[i - 1][j] + wop + wex);
             M2[i][j] = min(M2[i][j - 1] + wex, D[i][j - 1] + wop + wex);
+            D[i][j] = min({M1[i][j], M2[i][j], match_mismatch});
         }
     }
     *score = D[n][m];
