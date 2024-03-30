@@ -21,7 +21,7 @@ int main() {
     int i = 0;
     for (i = 0; i < 100; i++) {
         int res = wagnerFischerAffineGap2(read, sub, &score, false, 1, 1, 1);
-        //cout << "res: " << res;
+        res = res + 1;
     }
     return 0;
 }
@@ -52,17 +52,6 @@ int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  boo
     int max_gap = MAX_GAP;
     int max_gap_penalty = max_gap + wop;
 
-
-    for (int i = 1; i <= n; ++i) {
-        for (int j = 1; j <= m; ++j) {
-            if (abs(i - j) < max_gap) {
-                D[i][j] = max_gap_penalty;
-                M1[i][j] = max_gap_penalty;
-                M2[i][j] = max_gap_penalty;
-            }
-        }
-    }
-    /*
     // Fill the DP tables using dynamic programming
     for (int i = 1; i <= n; ++i) {
         for (int j = 1; j <= m; ++j) {
@@ -81,7 +70,6 @@ int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  boo
                 D[i][j] = min({M1[i][j], M2[i][j], D[i - 1][j - 1] + wsub});
         }
     }
-     */
     *score = D[n][m];
 
 
