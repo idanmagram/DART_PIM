@@ -1,5 +1,4 @@
 #include <iostream>
-#include <vector>
 #include <algorithm>
 
 using namespace std;
@@ -33,9 +32,9 @@ int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  boo
     //string seq1_align = "";
     //string seq2_align = "";
 
-    short D[REF_SUB_SEQUENCE_LENGTH+1][READ_LENGTH+1] = {0};
-    short M1[REF_SUB_SEQUENCE_LENGTH+1][READ_LENGTH+1] = {0};
-    short M2[REF_SUB_SEQUENCE_LENGTH+1][READ_LENGTH+1] = {0};
+    int D[REF_SUB_SEQUENCE_LENGTH+1][READ_LENGTH+1] = {0};
+    int M1[REF_SUB_SEQUENCE_LENGTH+1][READ_LENGTH+1] = {0};
+    int M2[REF_SUB_SEQUENCE_LENGTH+1][READ_LENGTH+1] = {0};
 
     const short max_gap = MAX_GAP;
     const short max_gap_penalty = max_gap + wop;
@@ -58,7 +57,7 @@ int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  boo
                 if (S1[i - 1] == S2[j - 1])
                     D[i][j] = D[i - 1][j - 1];
                 else
-                    D[i][j] = min({(int)(M1[i][j]), (int)M2[i][j], (int)D[i - 1][j - 1] + wsub});
+                    D[i][j] = min({(M1[i][j]), M2[i][j], D[i - 1][j - 1] + wsub});
             }
         }
     }
