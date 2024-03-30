@@ -39,16 +39,6 @@ int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  boo
     int M2[REF_SUB_SEQUENCE_LENGTH+1][READ_LENGTH+1] = {0};
 
 
-    // Initialize matrices with appropriate values
-    for (int i = 1; i <= n; ++i) {
-        D[i][0] = i;
-        M1[i][0] = i;
-    }
-    for (int j = 1; j <= m; ++j) {
-        D[0][j] = j;
-        M2[0][j] = j;
-    }
-
     const int max_gap = MAX_GAP;
     const int max_gap_penalty = max_gap + wop;
 
