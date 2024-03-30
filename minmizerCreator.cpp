@@ -27,23 +27,23 @@ int main() {
 }
 
 int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  bool backtraching, int wop, int wex, int wsub) {
-    const int n = S1.size();
-    const int m = S2.size();
+    const uint8_t n = S1.size();
+    const uint8_t m = S2.size();
     //vector<int> contenders;
     //int minCon = 0;
     //string seq1_align = "";
     //string seq2_align = "";
 
-    std::vector<std::vector<int>> D(REF_SUB_SEQUENCE_LENGTH + 1, std::vector<int>(READ_LENGTH + 1));
-    std::vector<std::vector<int>> M1(REF_SUB_SEQUENCE_LENGTH + 1, std::vector<int>(READ_LENGTH + 1));
-    std::vector<std::vector<int>> M2(REF_SUB_SEQUENCE_LENGTH + 1, std::vector<int>(READ_LENGTH + 1));
+    short D[REF_SUB_SEQUENCE_LENGTH+1][READ_LENGTH+1] = {0};
+    short M1[REF_SUB_SEQUENCE_LENGTH+1][READ_LENGTH+1] = {0};
+    short M2[REF_SUB_SEQUENCE_LENGTH+1][READ_LENGTH+1] = {0};
 
-    const int max_gap = MAX_GAP;
-    const int max_gap_penalty = max_gap + wop;
+    const short max_gap = MAX_GAP;
+    const short max_gap_penalty = max_gap + wop;
 
     // Fill the DP tables using dynamic programming
-    for (int i = 1; i <= n; ++i) {
-        for (int j = 1; j <= m; ++j) {
+    for (short i = 1; i <= n; ++i) {
+        for (short j = 1; j <= m; ++j) {
             if (abs(i - j) <= max_gap) {
                 if (abs (i - 1 - j) > max_gap) {
                     M1[i - 1][j] = max_gap_penalty;
@@ -59,7 +59,7 @@ int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  boo
                 if (S1[i - 1] == S2[j - 1])
                     D[i][j] = D[i - 1][j - 1];
                 else
-                    D[i][j] = min({M1[i][j], M2[i][j], D[i - 1][j - 1] + wsub});
+                    D[i][j] = min({(int)(M1[i][j]), (int)M2[i][j], (int)D[i - 1][j - 1] + wsub});
             }
         }
     }
