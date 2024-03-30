@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <cstdint>
 
 using namespace std;
 
@@ -27,8 +26,8 @@ int main() {
 }
 
 int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  bool backtraching, int wop, int wex, int wsub) {
-    const uint8_t n = S1.size();
-    const uint8_t m = S2.size();
+    const int n = S1.size();
+    const int m = S2.size();
     //vector<int> contenders;
     //int minCon = 0;
     //string seq1_align = "";
