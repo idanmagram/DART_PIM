@@ -1,5 +1,4 @@
 #include <iostream>
-#include <algorithm>
 
 using namespace std;
 
@@ -57,7 +56,7 @@ int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  boo
                 if (S1[i - 1] == S2[j - 1])
                     D[i][j] = D[i - 1][j - 1];
                 else
-                    D[i][j] = min({(M1[i][j]), M2[i][j], D[i - 1][j - 1] + wsub});
+                    D[i][j] = std::min(std::min((M1[i][j]), M2[i][j]), D[i - 1][j - 1] + wsub);
             }
         }
     }
