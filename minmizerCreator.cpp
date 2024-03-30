@@ -49,8 +49,8 @@ int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  boo
         M2[0][j] = j;
     }
 
-    int max_gap = MAX_GAP;
-    int max_gap_penalty = max_gap + wop;
+    const int max_gap = MAX_GAP;
+    const int max_gap_penalty = max_gap + wop;
 
     // Fill the DP tables using dynamic programming
     for (int i = 1; i <= n; ++i) {
