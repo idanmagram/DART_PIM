@@ -36,12 +36,12 @@ int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  boo
     int M1[REF_SUB_SEQUENCE_LENGTH+1][READ_LENGTH+1] = {0};
     int M2[REF_SUB_SEQUENCE_LENGTH+1][READ_LENGTH+1] = {0};
 
-    const short max_gap = MAX_GAP;
-    const short max_gap_penalty = max_gap + wop;
+    const int max_gap = MAX_GAP;
+    const int max_gap_penalty = max_gap + wop;
 
     // Fill the DP tables using dynamic programming
-    for (short i = 1; i <= n; ++i) {
-        for (short j = 1; j <= m; ++j) {
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= m; ++j) {
             if (abs(i - j) <= max_gap) {
                 if (abs (i - 1 - j) > max_gap) {
                     M1[i - 1][j] = max_gap_penalty;
