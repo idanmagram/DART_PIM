@@ -20,60 +20,66 @@ int main() {
     string sub  = "002011023132211001032232000111103133301300000301000300330213222323223223222101132300331102130131222002320021022020031010320011132202210202203210232023020220";
     int i = 0;
     int res = 0;
-    for (i = 0; i < 1000; i++) {
+    for (i = 0; i < 10; i++) {
         res = wagnerFischerAffineGap2(read, sub, &score, false, 1, 1, 1);
     }
     return res;
 }
 
 int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  bool backtraching, int wop, int wex, int wsub) {
-    int n = S1.size();
-    int m = S2.size();
     vector<int> contenders;
     int minCon = 0;
     string seq1_align = "";
     string seq2_align = "";
-
-    int D[REF_SUB_SEQUENCE_LENGTH+1][READ_LENGTH+1] = {0};
-    int M1[REF_SUB_SEQUENCE_LENGTH+1][READ_LENGTH+1] = {0};
-    int M2[REF_SUB_SEQUENCE_LENGTH+1][READ_LENGTH+1] = {0};
-
+    const int n = S1.size();
+    const int m = S2.size();
 
     // Initialize matrices with appropriate values
-    for (int i = 1; i <= n; ++i) {
-        D[i][0] = i;
-        M1[i][0] = i;
-    }
-    for (int j = 1; j <= m; ++j) {
-        D[0][j] = j;
-        M2[0][j] = j;
-    }
-
-    int max_gap = MAX_GAP;
-    int max_gap_penalty = max_gap + wop;
+    int* D = new int[(n + 1) * (m + 1)]{};
+    int* M1 = new int[(n + 1) * (m + 1)]{};
+    int* M2 = new int[(n + 1) * (m + 1)]{};
 
     // Fill the DP tables using dynamic programming
     for (int i = 1; i <= n; ++i) {
+        D[i * (m + 1)] = i;
+        M1[i * (m + 1)] = i;
+    }
+    for (int j = 1; j <= m; ++j) {
+        D[j] = j;
+        M2[j] = j;
+    }
+
+    const int max_gap = MAX_GAP;
+    const int max_gap_penalty = max_gap + wop;
+
+    for (int i = 1; i <= n; ++i) {
         for (int j = 1; j <= m; ++j) {
+            const int idx = i * (m + 1) + j;
             if (abs(i - j) > max_gap) {
-                D[i][j] = max_gap_penalty;
-                M1[i][j] = max_gap_penalty;
-                M2[i][j] = max_gap_penalty;
+                D[idx] = max_gap_penalty;
+                M1[idx] = max_gap_penalty;
+                M2[idx] = max_gap_penalty;
                 continue;
             }
 
-            M1[i][j] = min(M1[i - 1][j] + wex, D[i - 1][j] + wop + wex);
-            M2[i][j] = min(M2[i][j - 1] + wex, D[i][j - 1] + wop + wex);
-            if (S1[i - 1] == S2[j - 1])
-                D[i][j] = D[i - 1][j - 1];
-            else
-                D[i][j] = min({M1[i][j], M2[i][j], D[i - 1][j - 1] + wsub});
+            const int idx_diag = (i - 1) * (m + 1) + (j - 1);
+            const int idx_up = (i - 1) * (m + 1) + j;
+            const int idx_left = i * (m + 1) + (j - 1);
+
+            M1[idx] = min(M1[idx_up] + wex, D[idx_up] + wop + wex);
+            M2[idx] = min(M2[idx_left] + wex, D[idx_left] + wop + wex);
+            D[idx] = (S1[i - 1] == S2[j - 1]) ? D[idx_diag] : min({M1[idx], M2[idx], D[idx_diag] + wsub});
         }
     }
-    *score = D[n][m];
 
+    *score = D[n * (m + 1) + m];
+
+    delete[] D;
+    delete[] M1;
+    delete[] M2;
 
     // find the alignment of the read according to sub reference sequence
+    /*
     if(backtraching) {
         int i = n, j = m;
         while (i > 0 && j > 0 && D[i][j] > 0) {
@@ -107,5 +113,6 @@ int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  boo
     }
 
     return *score;
+     */
 }
 
