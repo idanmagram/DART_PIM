@@ -111,8 +111,7 @@ int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  boo
         std::reverse(seq1_align.begin(), seq1_align.end());
         std::reverse(seq2_align.begin(), seq2_align.end());
     }
-
+    */
     return *score;
-     */
 }
 
