@@ -19,11 +19,12 @@ int main() {
     string read = "002011023132211001032232000111103133301300000301000300330213222323223223222101132300331102130131222002320021022020031010320011132202210202203210232023";
     string sub  = "002011023132211001032232000111103133301300000301000300330213222323223223222101132300331102130131222002320021022020031010320011132202210202203210232023020220";
     int i = 0;
+    int res = 0;
     for (i = 0; i < 100; i++) {
-        int res = wagnerFischerAffineGap2(read, sub, &score, false, 1, 1, 1);
+        res = wagnerFischerAffineGap2(read, sub, &score, false, 1, 1, 1);
         res = res + 1;
     }
-    return 0;
+    return res;
 }
 
 int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  bool backtraching, int wop, int wex, int wsub) {
