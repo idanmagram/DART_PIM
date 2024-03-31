@@ -20,7 +20,7 @@ int main() {
     int i = 0;
     int res = 0;
     for (i = 0; i < 100; i++) {
-        res = wagnerFischerAffineGap2(read, sub, &score, false, 1, 1, 1);
+        res = wagnerFischerAffineGap2(read, sub, &score, true, 1, 1, 1);
     }
     return res;
 }
