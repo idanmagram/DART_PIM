@@ -66,7 +66,7 @@ int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  boo
 
     if(backtraching) {
         int i = n, j = m;
-        while (i > 0 && j > 0 && D[i][j] > 0) {
+        while (i > 0 && j > 0 ) {
             contenders = {D[i - 1][j - 1], D[i - 1][j], D[i][j - 1]};
             minCon = *(std::min_element(contenders.begin(), contenders.end()));
 
