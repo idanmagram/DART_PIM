@@ -19,8 +19,8 @@ int main() {
     string sub  = "002011023132211001032232000111103133301300000301000300330213222323223223222101132300331102130131222002320021022020031010320011132202210202203210232023020220";
     int i = 0;
     int res = 0;
-    for (i = 0; i < 1; i++) {
-        res = wagnerFischerAffineGap2(read, sub, &score, false, 1, 1, 1);
+    for (i = 0; i < 100; i++) {
+        res = wagnerFischerAffineGap2(read, sub, &score, true, 1, 1, 1);
     }
     return res;
 }
@@ -66,7 +66,7 @@ int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  boo
 
     if(backtraching) {
         int i = n, j = m;
-        while (i > 0 && j > 0 ) {
+        while (i > 0 && j > 0) {
             contenders = {D[i - 1][j - 1], D[i - 1][j], D[i][j - 1]};
             minCon = *(std::min_element(contenders.begin(), contenders.end()));
 
