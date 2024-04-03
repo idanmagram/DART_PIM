@@ -21,7 +21,6 @@ int main() {
     int res = 0;
     for (i = 0; i < 1; i++) {
         res = wagnerFischerAffineGap2(read, sub, &score, false, 1, 1, 1);
-        cout << res;
     }
     return res;
 }
