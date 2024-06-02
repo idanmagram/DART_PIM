@@ -56,7 +56,7 @@ void getReadsFromFile(ifstream& readsFile){
     }
     while(getline(readsFile, line)){
         //convertSeq2Nums(line), The conversion is after find_minimizers because the function gets read of letters
-        cout << "idan magram ";
+        cout << "idan magram " << line << endl;
         //skip two line
     }
 }
