@@ -1,8 +1,14 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <fstream>
+
 
 using namespace std;
+
 
 #define MAX 10
 
@@ -12,19 +18,49 @@ using namespace std;
 #define MAX_GAP                    2 * ERROR_THRESHOLD
 
 int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  bool backtraching, int wop, int wex, int wsub);
+void getReadsFromFile(ifstream& readsFile);
 
-int main() {
+int main(int argc, char* argv[]) {
+    /*
     int score = 0;
-    string read = "002011023132211001032232000111103133301300000301000300330213222323223223222101132300331102130131222002320021022020031010320011132202210202203210232023";
-    string sub  = "002011023132211001032232000111103133301300000301000300330213222323223223222101132300331102130131222002320021022020031010320011132202210202203210232023020220";
+    string read = "300302032130100103230320011332000010300300032000130231223103000030313103033030320330103310303220032311020010222002010223001003010302033313300221322022";
+    string sub  = "002301300302032130100103230320011332000010300300032000130231223103000030313103033030320330103310303220032311020010222002010223001003010302033313300221322022";
     int i = 0;
     int res = 0;
     for (i = 0; i < 100; i++) {
         res = wagnerFischerAffineGap2(read, sub, &score, false, 1, 1, 1);
     }
     return res;
+     */
+
+    ifstream readsFile;
+    bool readsFileOpen = false;
+    readsFile = ifstream(argv[2]);
+    readsFileOpen = readsFile.is_open();
+    if(!readsFileOpen){
+        std::cout << "ERROR: Can't open file " << string(argv[2]) << endl;
+        return 1;
+    }
+
+    getReadsFromFile(readsFile);
+
 }
 
+void getReadsFromFile(ifstream& readsFile){
+    cout << "start getReadsFromFile" << endl;
+    string line;
+    //skip first line
+    if(!getline(readsFile, line)){
+        std::cout << "MSG: Reads file is empty." << line << endl;
+        return;
+    }
+    while(getline(readsFile, line)){
+        //convertSeq2Nums(line), The conversion is after find_minimizers because the function gets read of letters
+        cout << "idan";
+        //skip two line
+    }
+}
+/*
 int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  bool backtraching, int wop, int wex, int wsub) {
     const int n = S1.size();
     const int m = S2.size();
@@ -97,4 +133,4 @@ int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  boo
     }
     return *score;
 }
-
+*/
