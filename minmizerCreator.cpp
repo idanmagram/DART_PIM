@@ -21,7 +21,7 @@ int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  boo
 void getReadsFromFile(ifstream& readsFile);
 
 int main(int argc, char* argv[]) {
-    /*
+
     int score = 0;
     string read = "300302032130100103230320011332000010300300032000130231223103000030313103033030320330103310303220032311020010222002010223001003010302033313300221322022";
     string sub  = "002301300302032130100103230320011332000010300300032000130231223103000030313103033030320330103310303220032311020010222002010223001003010302033313300221322022";
@@ -31,8 +31,8 @@ int main(int argc, char* argv[]) {
         res = wagnerFischerAffineGap2(read, sub, &score, false, 1, 1, 1);
     }
     return res;
-     */
 
+/*
     ifstream readsFile;
     bool readsFileOpen = false;
     readsFile = ifstream(argv[2]);
@@ -43,9 +43,9 @@ int main(int argc, char* argv[]) {
     }
 
     getReadsFromFile(readsFile);
-
+*/
 }
-
+/*
 void getReadsFromFile(ifstream& readsFile){
     cout << "start getReadsFromFile" << endl;
     string line;
@@ -56,11 +56,12 @@ void getReadsFromFile(ifstream& readsFile){
     }
     while(getline(readsFile, line)){
         //convertSeq2Nums(line), The conversion is after find_minimizers because the function gets read of letters
-        cout << "idan magram " << line << endl;
+        cout << "idan magram ";
         //skip two line
     }
 }
-/*
+*/
+
 int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  bool backtraching, int wop, int wex, int wsub) {
     const int n = S1.size();
     const int m = S2.size();
@@ -133,4 +134,4 @@ int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score,  boo
     }
     return *score;
 }
-*/
+
