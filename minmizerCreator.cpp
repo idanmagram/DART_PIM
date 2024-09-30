@@ -117,4 +117,5 @@ int wagnerFischerAffineGap2(const string& S1, const string& S2, int* score, bool
     }
 
     *score = D[n][m]; // Final alignment score
+    return *score;
 }
