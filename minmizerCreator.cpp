@@ -27,7 +27,7 @@ int main(int argc, char* argv[]) {
     string sub  = "002301300302032130100103230320011332000010300300032000130231223103000030313103033030320330103310303220032311020010222002010223001003010302033313300221322022";
     int i = 0;
     int res = 0;
-    for (i = 0; i < 100; i++) {
+    for (i = 0; i < 1000; i++) {
         res = wagnerFischerAffineGap2(read, sub, &score, false, 1, 1, 1);
         cout << res;
     }
