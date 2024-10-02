@@ -29,7 +29,7 @@ int main(int argc, char* argv[]) {
     //string sub = "mat" ;
     int i = 0;
     int res = 0;
-    for (i = 0; i < 1; i++) {
+    for (i = 0; i < 1000; i++) {
         res = wagnerFischerAffineGap2(read, sub, &score, false, 1, 1, 1);
         cout << res;
     }
